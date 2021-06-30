@@ -38,11 +38,12 @@ d3.json("samples.json").then((incomingData) => {
     
         //append metadata into table
         var summary = d3.select(".panel-body");
-        Object.entries(metasummary).forEach(([key,value])=>{ summary.append().text(`${key}: ${value}`)})
+        summary.html("");
+        Object.entries(metasummary).forEach(([key,value])=>{ summary.append("h5").text(`${key}: ${value}`)});
 
         //isolate sample values,otu_kds, otu_labels for selID
         var filteredsample = sample.filter(sampleobj => sampleobj.id == selID)
-        //console.log(filteredsample);
+        console.log(filteredsample);
 
         var samplevalues = filteredsample[0].sample_values
         //console.log(samplevalues);
@@ -54,11 +55,26 @@ d3.json("samples.json").then((incomingData) => {
         console.log(sampleotuids);
 
         //build bar chart
-        //slice data to ten
-        slicedvalues = samplevalues.slice(0,10);
-        slicedlables = sampleotulabels.slice(0,10);
-        slicedids = sampleotuids.slice(0,10);
-        console.log(slicedids);
+
+        //sort filteredsample
+        sortedsample = filteredsample.sort((a,b)=>a.sample_values - b.sample_values)
+        console.log(sortedsample);
+
+        //isolate variables
+        var sortedvalues = sortedsample[0].sample_values
+        //console.log(samplevalues);
+
+        var sortedotulables = sortedsample[0].otu_labels
+        //console.log(sampleotulabels);
+
+        var sortedotuids = sortedsample[0].otu_ids
+
+
+        //slice data to ten FILTER FIRST LOOK at sort example and then slice
+        slicedvalues = sortedvalues.slice(0,10);
+        slicedlables = sortedotulables.slice(0,10);
+        slicedids = sortedotuids.slice(0,10);
+        //console.log(slicedids);
 
         // //reverse data
         // slicedvalues = slicedvalues.sort();
