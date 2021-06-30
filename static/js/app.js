@@ -57,7 +57,8 @@ d3.json("samples.json").then((incomingData) => {
         //build bar chart
 
         //sort filteredsample
-        sortedsample = filteredsample.sort((a,b)=>a.sample_values - b.sample_values)
+        sortedsample = filteredsample.sort(function(first, second) {
+            return second.sample_values - first.sample_values;});
         console.log(sortedsample);
 
         //isolate variables
@@ -73,13 +74,9 @@ d3.json("samples.json").then((incomingData) => {
         //slice data to ten FILTER FIRST LOOK at sort example and then slice
         slicedvalues = sortedvalues.slice(0,10);
         slicedlables = sortedotulables.slice(0,10);
-        slicedids = sortedotuids.slice(0,10);
-        //console.log(slicedids);
-
-        // //reverse data
-        // slicedvalues = slicedvalues.sort();
-        // slicedlables = slicedlables.sort();
-        // slicedids = slicedids.sort();
+        slicedidsnum = sortedotuids.slice(0,10);
+        slicedids = ' ' + slicedidsnum;
+        console.log(slicedids);
 
         //setup trace
         var trace1 = {
